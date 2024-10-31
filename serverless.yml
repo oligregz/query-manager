@@ -13,6 +13,12 @@ functions:
       - httpApi:
           path: /users
           method: get
+  medicoAgendaController:
+    handler: src/agenda/controller/medicoAgendaController.listAgendas
+    events:
+      - httpApi:
+          path: /agendas
+          method: get
 
 plugins:
   - serverless-offline

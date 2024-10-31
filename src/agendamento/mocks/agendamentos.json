@@ -1,0 +1,39 @@
+{
+  "agendamentos": [
+    {
+      "id": 1,
+      "medico": "Dr. João Silva",
+      "paciente": "Carlos Santos",
+      "status": "confirmado",
+      "data_horario": "2024-10-05T09:00:00"
+    },
+    {
+      "id": 2,
+      "medico": "Dra. Maria Souza",
+      "paciente": "Ana Ribeiro",
+      "status": "pendente",
+      "data_horario": "2024-10-06T14:00:00"
+    },
+    {
+      "id": 3,
+      "medico": "Dr. Carlos Pereira",
+      "paciente": "Fernanda Costa",
+      "status": "confirmado",
+      "data_horario": "2024-10-07T09:30:00"
+    },
+    {
+      "id": 4,
+      "medico": "Dra. Ana Clara Oliveira",
+      "paciente": "Lucas Dias",
+      "status": "cancelado",
+      "data_horario": "2024-10-08T11:30:00"
+    },
+    {
+      "id": 5,
+      "medico": "Dr. Ricardo Almeida",
+      "paciente": "Mariana Alves",
+      "status": "confirmado",
+      "data_horario": "2024-10-09T15:00:00"
+    }
+  ]
+}
