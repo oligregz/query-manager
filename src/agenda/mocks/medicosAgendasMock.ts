@@ -1,6 +1,6 @@
-import { IMedicoAgenda } from "../interface/IMedicosAgendas";
+import { IMedicosAgendas } from "../interface/IMedicosAgendas";
 
-export const medicosAgendasMock: IMedicoAgenda[] = [
+export const medicosAgendasMock: IMedicosAgendas[] = [
   {
     id: 1,
     nome: "Dr. João Silva",
