@@ -13,8 +13,8 @@ functions:
       - httpApi:
           path: /users
           method: get
-  medicoAgendaController:
-    handler: src/agenda/controller/medicoAgendaController.listAgendas
+  medicosAgendasController:
+    handler: src/agenda/controller/medicosAgendasController.listAgendas
     events:
       - httpApi:
           path: /agendas
