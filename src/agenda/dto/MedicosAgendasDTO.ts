@@ -1,6 +1,6 @@
-import { IMedicoAgenda } from "../interface/IMedicoAgenda";
+import { IMedicosAgendas } from "../interface/IMedicosAgendas"
 
-export class MedicoAgendaDTO implements IMedicoAgenda {
+export class MedicoAgendaDTO implements IMedicosAgendas {
   constructor(
     public id: number,
     public nome: string,
