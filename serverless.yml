@@ -1,0 +1,19 @@
+app: query-manager-serverless
+service: query-manager-serverless
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+
+functions:
+  mainFunction:
+    handler: src/mainFunction.handler
+    events:
+      - httpApi:
+          path: /users
+          method: get
+
+plugins:
+  - serverless-offline
+  - serverless-plugin-typescript
