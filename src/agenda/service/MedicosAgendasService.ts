@@ -1,6 +1,5 @@
 import { formatDate } from "../../utils/formatDate" 
 import { IMedicosAgendas } from "../interface/IMedicosAgendas" 
-import { medicosAgendasMock } from "../mocks/medicosAgendasMock"
 import { MedicosAgendasDTO } from "../dto/MedicosAgendasDTO"
 
 export class MedicosAgendasService {
