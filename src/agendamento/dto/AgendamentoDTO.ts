@@ -14,7 +14,6 @@ export class AgendamentoDTO implements IAgendamento {
 
   static getAllAgendaemntos(): IAgendamento[] | undefined {
     const agendamentos: IAgendamento[] | undefined = agendamentosMock
-
     return agendamentos
   }
 

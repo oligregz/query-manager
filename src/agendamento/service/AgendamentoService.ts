@@ -5,7 +5,7 @@ import { formatDateStringForISO8601 } from "../../utils/formatDateStringForISO86
 import { MedicosAgendasDTO } from "../../agenda/dto/MedicosAgendasDTO"
 import { formatDatesISOToString } from "../../utils/formatDatesISOToString"
 import { formatDate } from "../../utils/formatDate"
-import { IAgendamentoResponse } from "../interface/IAgendamentoResponse "
+import { IAgendamentoResponse } from "../interface/IAgendamentoResponse"
 
 export class AgendamentoService {
 

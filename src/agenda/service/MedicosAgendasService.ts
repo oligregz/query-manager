@@ -24,4 +24,8 @@ export class MedicosAgendasService {
 
     return formattedData
   }
+
+  public removeMedico(medicoId: number): IMedicosAgendas[] {
+    return MedicosAgendasDTO.removeMedico(medicoId)
+  }
 }

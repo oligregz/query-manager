@@ -1,6 +1,7 @@
 import { IMedicosAgendas } from "../interface/IMedicosAgendas"
 import { medicosAgendasMock } from "../mocks/medicosAgendasMock"
 import { formatDateStringForISO8601 } from "../../utils/formatDateStringForISO8601"
+import { listMedicos, removeMedico } from "../repository/medicosAgendasRepository"
 
 export class MedicosAgendasDTO implements IMedicosAgendas {
   constructor(
@@ -12,7 +13,7 @@ export class MedicosAgendasDTO implements IMedicosAgendas {
 
 
   static getAllMedicosAgendas(): IMedicosAgendas[] {
-    return medicosAgendasMock
+    return listMedicos()
   }
 
   static getMedicoAgendaById(medicoId: number): IMedicosAgendas | undefined {
@@ -46,5 +47,10 @@ export class MedicosAgendasDTO implements IMedicosAgendas {
     }
   
     return false
+  }
+
+  static removeMedico(medicoId: number): IMedicosAgendas[] {
+
+    return removeMedico(medicoId)
   }
 }

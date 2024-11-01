@@ -2,7 +2,7 @@ import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda"
 import { AgendamentoService } from "../service/AgendamentoService"
 import { IAgendamentoParams } from "../interface/IAgendamentoParams"
 import { IAgendamento } from "../interface/IAgendamento"
-import { IAgendamentoResponse } from "../interface/IAgendamentoResponse "
+import { IAgendamentoResponse } from "../interface/IAgendamentoResponse"
 
 export const setAgendamento = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   try {
