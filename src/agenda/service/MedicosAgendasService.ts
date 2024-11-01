@@ -4,12 +4,12 @@ import { MedicosAgendasDTO } from "../dto/MedicosAgendasDTO"
 
 export class MedicosAgendasService {
 
-  public getAll(): IMedicosAgendas[] {
+  public getAll(): Object {
     const medicosAgendasFormatted: IMedicosAgendas[] = this.formatData(
       MedicosAgendasDTO.getAllMedicosAgendas()
     )
 
-    return medicosAgendasFormatted
+    return { medicos: medicosAgendasFormatted }
   }
 
   public formatData(medicosAgendasData: IMedicosAgendas[]): IMedicosAgendas[] {
