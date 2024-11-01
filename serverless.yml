@@ -19,6 +19,12 @@ functions:
       - httpApi:
           path: /agendas
           method: get
+  medicosAgendasControllerDelete:
+    handler: src/agenda/controller/medicosAgendasController.removeMedico
+    events:
+      - httpApi:
+          path: /agendas/{id}
+          method: delete
   agendamentosControllerCreate:
     handler: src/agendamento/controller/agendamentosController.setAgendamento
     events:
