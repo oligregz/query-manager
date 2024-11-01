@@ -1,11 +1,16 @@
 import { formatDate } from "../../utils/formatDate" 
 import { IMedicosAgendas } from "../interface/IMedicosAgendas" 
 import { medicosAgendasMock } from "../mocks/medicosAgendasMock"
+import { MedicosAgendasDTO } from "../dto/MedicosAgendasDTO"
 
 export class MedicosAgendasService {
 
   public getAll(): IMedicosAgendas[] {
-    return this.formatData(medicosAgendasMock)
+    const medicosAgendasFormatted: IMedicosAgendas[] = this.formatData(
+      MedicosAgendasDTO.getAllMedicosAgendas()
+    )
+
+    return medicosAgendasFormatted
   }
 
   public formatData(medicosAgendasData: IMedicosAgendas[]): IMedicosAgendas[] {
