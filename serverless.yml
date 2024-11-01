@@ -19,6 +19,12 @@ functions:
       - httpApi:
           path: /agendas
           method: get
+  agendamentosController:
+    handler: src/agendamento/controller/agendamentosController.setAgendamento
+    events:
+      - httpApi:
+          path: /agendamento
+          method: post
 
 plugins:
   - serverless-offline
