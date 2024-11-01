@@ -1,19 +1,18 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda"
-import { IMedicosAgendas } from "../interface/IMedicosAgendas"
 import { MedicosAgendasService } from "../service/MedicosAgendasService"
 
 const medicosAgendasService = new MedicosAgendasService()
 
-export const getAllMedicosAgendas = (): IMedicosAgendas[] => {
-  const medicosAgendas: IMedicosAgendas[] = medicosAgendasService.getAll()
-
+export const getAllMedicosAgendas = (): Object=> {
+  const medicosAgendas: Object  = medicosAgendasService.getAll()
   if (!medicosAgendas) return []
+
   return medicosAgendas
 }
 
 export const listAgendas = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   try {
-    const agendas: IMedicosAgendas[] = getAllMedicosAgendas()
+    const agendas: Object = getAllMedicosAgendas()
 
     return {
       statusCode: 200,

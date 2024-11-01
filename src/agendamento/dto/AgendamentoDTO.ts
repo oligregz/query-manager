@@ -1,3 +1,4 @@
+import { formatDateStringForISO8601 } from "../../utils/formatDateStringForISO8601"
 import { IAgendamento } from "../interface/IAgendamento"
 import { IAgendamentoParams } from "../interface/IAgendamentoParams"
 import { agendamentosMock } from "../mocks/agendamentosMock"
@@ -11,6 +12,13 @@ export class AgendamentoDTO implements IAgendamento {
     public data_horario: string
   ) { }
 
+  static getAgendamentoById(id: number): IAgendamento | undefined {
+    const agendamento: IAgendamento | undefined = agendamentosMock
+    .find(agendamentoParam => agendamentoParam.id === id)
+
+    return agendamento
+  }
+  
   static setAgendamento(agendamento: IAgendamento) {
   
     const maxId: number = this.getMaxId() + 1
@@ -24,14 +32,16 @@ export class AgendamentoDTO implements IAgendamento {
   static hasAgendamento(agendamentoParam: IAgendamentoParams): IAgendamento | undefined {
     const hasAgendamento: IAgendamento | undefined = agendamentosMock.find((agendamento) => {
       agendamentoParam.medico_id === agendamento.medico_id
-      && agendamentoParam.data_horario === agendamento.data_horario
+      && formatDateStringForISO8601(agendamentoParam.data_horario) === agendamento.data_horario
       && agendamentoParam.paciente_nome === agendamento.paciente_nome
     })
     return hasAgendamento
   }
 
-  static getMaxId = (): number => {
+  static getMaxId(): number {
     return agendamentosMock.reduce((maxId, agendamento) => 
-      agendamento.id > maxId ? agendamento.id : maxId, 0)
+      agendamento.id > maxId ? agendamento.id : maxId, 0
+    )
   }
+
 }

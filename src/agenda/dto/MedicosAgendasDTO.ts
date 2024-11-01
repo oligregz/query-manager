@@ -15,23 +15,36 @@ export class MedicosAgendasDTO implements IMedicosAgendas {
     return medicosAgendasMock
   }
 
-  static getMedicoAgendaById(medicoId: number): IMedicosAgendas | Object {
-    const medicoAgenda: IMedicosAgendas | undefined = medicosAgendasMock.find(
-      (medico) => { medico.id === medicoId }
-    )
-
-    return !medicoAgenda ? {} : medicoAgenda
+  static getMedicoAgendaById(medicoId: number): IMedicosAgendas | undefined {
+    const medicoAgenda: IMedicosAgendas | undefined = medicosAgendasMock.find(medico =>  medico.id === medicoId)
+    
+    return medicoAgenda 
   }
 
   static hasTimetableAvailable(data_horario: string, medicoId: number): Boolean {
     const medicoAgenda = this.getMedicoAgendaById(medicoId) as IMedicosAgendas
 
-    if ( !medicoAgenda || !medicoAgenda.hasOwnProperty("id") ) return false
+    if ( !medicoAgenda ) return false
 
-    const timetableIsAvailable: Boolean = medicoAgenda.horarios_disponiveis.includes(
-      formatDateStringForISO8601(data_horario)
-    )
+    const formattedDateToISO8601 = formatDateStringForISO8601(data_horario)
+    const timetableIsAvailable: Boolean = medicoAgenda.horarios_disponiveis.includes(formattedDateToISO8601)
     
     return timetableIsAvailable
+  }
+
+  static removeAvailableHour(time: string, medicoId: number): boolean {
+
+    const medicoAgenda = this.getMedicoAgendaById(medicoId) as IMedicosAgendas;
+  
+    if (!medicoAgenda) return false;
+  
+    const index = medicoAgenda.horarios_disponiveis.indexOf(time);
+  
+    if (index !== -1) {
+      medicoAgenda.horarios_disponiveis.splice(index, 1);
+      return true
+    }
+  
+    return false
   }
 }

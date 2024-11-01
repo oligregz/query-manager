@@ -1,4 +1,4 @@
-import { IMedicosAgendas } from "../interface/IMedicosAgendas";
+import { IMedicosAgendas } from "../interface/IMedicosAgendas"
 
 export const medicosAgendasMock: IMedicosAgendas[] = [
   {
