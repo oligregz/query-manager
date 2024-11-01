@@ -22,13 +22,13 @@ export class MedicosAgendasDTO implements IMedicosAgendas {
   }
 
   static hasTimetableAvailable(data_horario: string, medicoId: number): Boolean {
-    const medicoAgenda = this.getMedicoAgendaById(medicoId) as IMedicosAgendas
 
+    const medicoAgenda = this.getMedicoAgendaById(medicoId) as IMedicosAgendas
     if ( !medicoAgenda ) return false
 
     const formattedDateToISO8601 = formatDateStringForISO8601(data_horario)
     const timetableIsAvailable: Boolean = medicoAgenda.horarios_disponiveis.includes(formattedDateToISO8601)
-    
+
     return timetableIsAvailable
   }
 

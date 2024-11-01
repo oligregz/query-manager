@@ -3,30 +3,30 @@
     "id": 1,
     "medico_id": 1,
     "paciente_nome": "Carlos Santos",
-    "data_horario": "2024-10-05T09:00:00"
+    "data_horario": "2024-10-05T09:00"
   },
   {
     "id": 2,
     "medico_id": 2,
     "paciente_nome": "Ana Ribeiro",
-    "data_horario": "2024-10-06T14:00:00"
+    "data_horario": "2024-10-06T14:00"
   },
   {
     "id": 3,
     "medico_id": 3,
     "paciente_nome": "Fernanda Costa",
-    "data_horario": "2024-10-07T09:30:00"
+    "data_horario": "2024-10-07T09:30"
   },
   {
     "id": 4,
     "medico_id": 4,
     "paciente_nome": "Lucas Dias",
-    "data_horario": "2024-10-08T11:30:00"
+    "data_horario": "2024-10-08T11:30"
   },
   {
     "id": 5,
     "medico_id": 5,
     "paciente_nome": "Mariana Alves",
-    "data_horario": "2024-10-09T15:00:00"
+    "data_horario": "2024-10-09T15:00"
   }
 ]

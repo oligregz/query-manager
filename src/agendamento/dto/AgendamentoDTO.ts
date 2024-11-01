@@ -12,6 +12,12 @@ export class AgendamentoDTO implements IAgendamento {
     public data_horario: string
   ) { }
 
+  static getAllAgendaemntos(): IAgendamento[] | undefined {
+    const agendamentos: IAgendamento[] | undefined = agendamentosMock
+
+    return agendamentos
+  }
+
   static getAgendamentoById(id: number): IAgendamento | undefined {
     const agendamento: IAgendamento | undefined = agendamentosMock
     .find(agendamentoParam => agendamentoParam.id === id)
