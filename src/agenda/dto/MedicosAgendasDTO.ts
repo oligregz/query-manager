@@ -1,7 +1,7 @@
 import { IMedicosAgendas } from "../interface/IMedicosAgendas"
 import { medicosAgendasMock } from "../mocks/medicosAgendasMock"
 import { formatDateStringForISO8601 } from "../../utils/formatDateStringForISO8601"
-import { listMedicosAgendas, removeMedicoAgenda, updateMedicoAgenda } from "../repository/medicosAgendasRepository"
+import * as MedicosAgendasRepository from "../repository/medicosAgendasRepository"
 import { IMedicoAgenda } from "../interface/IMedicoAgenda"
 
 export class MedicosAgendasDTO implements IMedicosAgendas {
@@ -14,11 +14,11 @@ export class MedicosAgendasDTO implements IMedicosAgendas {
 
 
   static getAllMedicosAgendas(): IMedicosAgendas[] {
-    return listMedicosAgendas()
+    return MedicosAgendasRepository.listMedicosAgendas()
   }
 
-  static getMedicoAgendaById(medicoId: number): IMedicosAgendas | undefined {
-    const medicoAgenda: IMedicosAgendas | undefined = medicosAgendasMock.find(medico =>  medico.id === medicoId)
+  static getMedicoAgendaById(medicoId: number): IMedicoAgenda {
+    const medicoAgenda: IMedicoAgenda = MedicosAgendasRepository.getMedicoAgendaById(medicoId)
     
     return medicoAgenda 
   }
@@ -50,11 +50,11 @@ export class MedicosAgendasDTO implements IMedicosAgendas {
     return false
   }
 
-  static removeMedicoAgenda(medicoId: number): IMedicosAgendas[] {
-    return removeMedicoAgenda(medicoId)
+  static removeMedicoAgenda(medicoId: number): IMedicoAgenda[] {
+    return MedicosAgendasRepository.removeMedicoAgenda(medicoId)
   }
 
   static updateMedicoAgenda(medico: IMedicoAgenda): IMedicoAgenda[] | IMedicoAgenda {
-    return updateMedicoAgenda(medico)
+    return MedicosAgendasRepository.updateMedicoAgenda(medico)
   }
 }

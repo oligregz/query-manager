@@ -1,5 +1,5 @@
 
-import {  medicosAgendasMockFilePath, medicosAgendasMockDefaultFilePath } from "../mocks/medicosAgendasMock"
+import {  medicosAgendasMockFilePath } from "../mocks/medicosAgendasMock"
 import * as fs from 'fs'
 import { handleError } from "../../errors/handleError"
 import { IMedicosAgendas } from "../interface/IMedicosAgendas"
