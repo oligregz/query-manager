@@ -14,11 +14,36 @@ functions:
           path: /users
           method: get
   medicosAgendasController:
-    handler: src/agenda/controller/medicosAgendasController.listAgendas
+    handler: src/agenda/controller/medicosAgendasController.listMedicosAgendas
     events:
       - httpApi:
           path: /agendas
           method: get
+  medicosAgendasControllerDelete:
+    handler: src/agenda/controller/medicosAgendasController.removeMedicoAgenda
+    events:
+      - httpApi:
+          path: /agendas/{id}
+          method: delete
+  medicosAgendasControllerUpdate:
+    handler: src/agenda/controller/medicosAgendasController.updateMedicoAgenda
+    events:
+      - httpApi:
+          path: /agendas
+          method: put
+  agendamentosControllerCreate:
+    handler: src/agendamento/controller/agendamentosController.setAgendamento
+    events:
+      - httpApi:
+          path: /agendamento
+          method: post
+  agendamentosControllerList:
+    handler: src/agendamento/controller/agendamentosController.getAllAgendamentos
+    events:
+      - httpApi:
+          path: /agendamento
+          method: get
+
 
 plugins:
   - serverless-offline
