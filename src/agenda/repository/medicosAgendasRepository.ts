@@ -3,31 +3,31 @@ import {  medicosAgendasMockFilePath, medicosAgendasMockDefaultFilePath } from "
 import * as fs from 'fs'
 import { handleError } from "../../errors/handleError"
 import { IMedicosAgendas } from "../interface/IMedicosAgendas"
-import { IMedicosAgendasResponse } from "../interface/IMedicosAgendasResponse"
+import { IMedicoAgenda } from "../interface/IMedicoAgenda"
 
-export function readMedicos() {
+export function readMedicosAgendas() {
   try {
-
     const data = fs.readFileSync(medicosAgendasMockFilePath, 'utf-8')
+
     return JSON.parse(data)
 
   } catch (error) {
     handleError(error, 'Erro ao ler os médicos')
-    return []
   }
 }
 
-export function saveMedicos(medicos: IMedicosAgendas[]): void {
+export function saveMedicosAgendas(medicos: IMedicoAgenda[]): void {
   try {
     fs.writeFileSync(medicosAgendasMockFilePath, JSON.stringify(medicos, null, 2), 'utf-8')
+
   } catch (error) {
     handleError(error, 'Erro ao salvar médicos')
   }
 }
 
-export function listMedicos(): IMedicosAgendas[] {
+export function listMedicosAgendas(): IMedicosAgendas[] {
   try {
-    const medicos: IMedicosAgendas[] = readMedicos()
+    const medicos: IMedicosAgendas[] = readMedicosAgendas()
     if ( !medicos ) return []
 
     return  medicos
@@ -37,19 +37,64 @@ export function listMedicos(): IMedicosAgendas[] {
   }
 }
 
-export function removeMedico(id: number): IMedicosAgendas[] {
+export function removeMedicoAgenda(medicoId: number): IMedicosAgendas[] {
   try {
-    const medicos: IMedicosAgendas[] = readMedicos()
-    if (!medicos) return []
+    const medicos: IMedicosAgendas[] = listMedicosAgendas()
+    if ( !medicos ) return []
 
-    const updatedMedicos = medicos.filter(medico => medico.id !== id)
+    const updatedMedicos = medicos.filter(medico => medico.id !== medicoId)
 
-    saveMedicos(updatedMedicos)
+    saveMedicosAgendas(updatedMedicos)
 
     return updatedMedicos
 
   } catch (error) {
     handleError(error, 'Erro ao remover médico')
-    return []
+  }
+}
+
+export function getMedicoAgendaById(medicoId: number): IMedicoAgenda {
+  try {
+    const medicos: IMedicosAgendas[] = listMedicosAgendas()
+
+    if ( !medicos ) return {
+      mensagem: "Médicos não encontrados :/"
+    }
+
+    const medico: IMedicoAgenda = medicos.find(medico => medico.id === medicoId)
+
+    return medico
+
+  } catch (error) {
+    handleError(error, 'Erro ao remover médico')
+  }
+}
+
+export function updateMedicoAgenda(medicoParam: IMedicoAgenda ): IMedicoAgenda[] | IMedicoAgenda {
+  try {
+    const medicos: IMedicosAgendas[] = listMedicosAgendas()
+
+    if ( !medicos ) return {
+      mensagem: "Médicos não encontrados :/"
+    }
+
+    const updatedMedicos: IMedicoAgenda[] = medicos.map((medico) => {
+      if ( medico.id === medicoParam.id ) {
+        return {
+          ...medico,
+          nome: medicoParam.nome,
+          especialidade: medicoParam.especialidade,
+          horarios_disponiveis: medicoParam.horarios_disponiveis
+        }
+      }
+      return medico
+    }) 
+
+    saveMedicosAgendas(updatedMedicos)
+
+    return updatedMedicos
+
+  } catch (error) {
+    handleError(error, 'Erro ao remover médico')
   }
 }

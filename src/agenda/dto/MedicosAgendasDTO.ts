@@ -1,7 +1,8 @@
 import { IMedicosAgendas } from "../interface/IMedicosAgendas"
 import { medicosAgendasMock } from "../mocks/medicosAgendasMock"
 import { formatDateStringForISO8601 } from "../../utils/formatDateStringForISO8601"
-import { listMedicos, removeMedico } from "../repository/medicosAgendasRepository"
+import { listMedicosAgendas, removeMedicoAgenda, updateMedicoAgenda } from "../repository/medicosAgendasRepository"
+import { IMedicoAgenda } from "../interface/IMedicoAgenda"
 
 export class MedicosAgendasDTO implements IMedicosAgendas {
   constructor(
@@ -13,7 +14,7 @@ export class MedicosAgendasDTO implements IMedicosAgendas {
 
 
   static getAllMedicosAgendas(): IMedicosAgendas[] {
-    return listMedicos()
+    return listMedicosAgendas()
   }
 
   static getMedicoAgendaById(medicoId: number): IMedicosAgendas | undefined {
@@ -35,22 +36,25 @@ export class MedicosAgendasDTO implements IMedicosAgendas {
 
   static removeAvailableHour(time: string, medicoId: number): boolean {
 
-    const medicoAgenda = this.getMedicoAgendaById(medicoId) as IMedicosAgendas;
+    const medicoAgenda = this.getMedicoAgendaById(medicoId) as IMedicosAgendas
   
-    if (!medicoAgenda) return false;
+    if (!medicoAgenda) return false
   
-    const index = medicoAgenda.horarios_disponiveis.indexOf(time);
+    const index = medicoAgenda.horarios_disponiveis.indexOf(time)
   
     if (index !== -1) {
-      medicoAgenda.horarios_disponiveis.splice(index, 1);
+      medicoAgenda.horarios_disponiveis.splice(index, 1)
       return true
     }
   
     return false
   }
 
-  static removeMedico(medicoId: number): IMedicosAgendas[] {
+  static removeMedicoAgenda(medicoId: number): IMedicosAgendas[] {
+    return removeMedicoAgenda(medicoId)
+  }
 
-    return removeMedico(medicoId)
+  static updateMedicoAgenda(medico: IMedicoAgenda): IMedicoAgenda[] | IMedicoAgenda {
+    return updateMedicoAgenda(medico)
   }
 }

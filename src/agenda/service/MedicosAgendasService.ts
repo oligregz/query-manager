@@ -1,6 +1,7 @@
 import { formatDate } from "../../utils/formatDate" 
 import { IMedicosAgendas } from "../interface/IMedicosAgendas" 
 import { MedicosAgendasDTO } from "../dto/MedicosAgendasDTO"
+import { IMedicoAgenda } from "../interface/IMedicoAgenda"
 
 export class MedicosAgendasService {
 
@@ -11,7 +12,15 @@ export class MedicosAgendasService {
 
     return { medicos: medicosAgendasFormatted }
   }
+  
+  public removeMedicoAgenda(medicoId: number): IMedicosAgendas[] {
+    return MedicosAgendasDTO.removeMedicoAgenda(medicoId)
+  }
 
+  public updateMedicoAgenda(medico: IMedicoAgenda): IMedicoAgenda[] | IMedicoAgenda {
+    return MedicosAgendasDTO.updateMedicoAgenda(medico)
+  }
+  
   public formatData(medicosAgendasData: IMedicosAgendas[]): IMedicosAgendas[] {
     const formattedData = medicosAgendasData.map((medicoAgendas: IMedicosAgendas) => {
       return {
@@ -25,7 +34,4 @@ export class MedicosAgendasService {
     return formattedData
   }
 
-  public removeMedico(medicoId: number): IMedicosAgendas[] {
-    return MedicosAgendasDTO.removeMedico(medicoId)
-  }
 }
