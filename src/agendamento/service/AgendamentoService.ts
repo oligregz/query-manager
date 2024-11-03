@@ -1,64 +1,97 @@
 import { IAgendamento } from "../interface/IAgendamento"
 import { AgendamentoDTO } from "../dto/AgendamentoDTO"
 import { IAgendamentoParams } from "../interface/IAgendamentoParams"
-import { formatDateStringForISO8601 } from "../../utils/formatDateStringForISO8601"
-import { MedicosAgendasDTO } from "../../agenda/dto/MedicosAgendasDTO"
 import { formatDatesISOToString } from "../../utils/formatDatesISOToString"
 import { formatDate } from "../../utils/formatDate"
 import { IAgendamentoResponse } from "../interface/IAgendamentoResponse"
+import { IMedicosAgendasService } from "../../agenda/interface/IMedicosAgendasService"
+import { IMedicoAgenda } from "../../agenda/interface/IMedicoAgenda"
+import { formatAgendamentoData } from "../../utils/formatAgendamentoData"
+import { formatDateStringForISO8601 } from "../../utils/formatDateStringForISO8601"
 
 export class AgendamentoService {
 
+  private medicosAgendasService: IMedicosAgendasService
+
+  constructor(medicosAgendasService: IMedicosAgendasService) {
+    this.medicosAgendasService = medicosAgendasService
+  }
+
   public setAgendamento(agendamentoBody: IAgendamentoParams): IAgendamentoResponse {
-    const hasMedicoAgenda = MedicosAgendasDTO.getMedicoAgendaById(agendamentoBody.medico_id)
-    if ( !hasMedicoAgenda ) return { messagem: "Médico não encontrado" }
+
+    // 1) valida se médico existe
+    const medicoAgendas: IMedicoAgenda = this.medicosAgendasService.getMedicoAgendaById(agendamentoBody.medico_id)
+    if ( !medicoAgendas.hasOwnProperty('nome') ) return { menssagem: "Médico não encontrado" }
     
     // 2) o médico tem disponibilidade para o horário passado
-    const scheduleIsAvailable: Boolean = MedicosAgendasDTO.hasTimetableAvailable(
+    const scheduleIsAvailable: Boolean = this.medicosAgendasService.hasTimetableAvailable(
       agendamentoBody.data_horario,
       agendamentoBody.medico_id
     )
 
     if ( !scheduleIsAvailable ) {
       return {
-        messagem: "Horário não disponível",
-        horarios_disponiveis: formatDatesISOToString(hasMedicoAgenda.horarios_disponiveis)
+        menssagem: "Horário não disponível",
+        horarios_disponiveis: formatDatesISOToString(medicoAgendas.horarios_disponiveis)
       }
     }
 
     // 3) valida se o agendamento já existe
-    const hasAgendamento: IAgendamento | undefined = AgendamentoDTO.hasAgendamento(agendamentoBody)
-    if ( hasAgendamento ) return { messagem: "Agendamento já existe" }
+    const hasAgendamento: boolean = AgendamentoDTO.hasAgendamento(agendamentoBody)
+    if ( hasAgendamento ) return { menssagem: "Agendamento já existe" }
 
     // 4) cria novo agendamento
-    const newAgendamento = {
+    const newAgendamento: IAgendamento = {
       ...agendamentoBody,
       id: AgendamentoDTO.getMaxId() + 1
-    } as IAgendamento
+    }
 
     AgendamentoDTO.setAgendamento(newAgendamento)
 
     // 5) verifica se agendamento foi salvo
-    const savedAgendamento: IAgendamento | undefined = AgendamentoDTO.getAgendamentoById(newAgendamento.id)
-    if ( !savedAgendamento ) {
-      return { messagem: "Erro ao salvar o agendamento." }
+    const savedAgendamento: IAgendamento | IAgendamentoResponse = AgendamentoDTO
+    .getAgendamentoById(newAgendamento.id)
+
+    if ( !savedAgendamento || 'menssagem' in savedAgendamento) {
+      return { menssagem: "Erro ao salvar o agendamento." }
+    }
+
+
+    // 6) atualiza agenda do médico
+    const dataHorarioAgendamentoSaved = formatDateStringForISO8601(savedAgendamento.data_horario)
+
+    const updatedAgenda: string[] = medicoAgendas.horarios_disponiveis.filter((horarioAvailable) => {
+      return horarioAvailable !== dataHorarioAgendamentoSaved
+    })
+    
+    const medicoAgendaBodyUpdated: IMedicoAgenda = {
+      id: agendamentoBody.medico_id,
+      nome: medicoAgendas.nome,
+      especialidade: medicoAgendas.especialidade,
+      horarios_disponiveis: updatedAgenda
+    }
+
+    this.medicosAgendasService.updateMedicoAgenda(medicoAgendaBodyUpdated)
+
+    // 7) valida se a agenda do médico foi atualizada
+    const currentAgenda: string[] = this.medicosAgendasService
+    .getMedicoAgendaById(agendamentoBody.medico_id)
+    .horarios_disponiveis
+
+    const medicoAgendaIsUpdated: boolean = JSON.stringify(currentAgenda) === JSON.stringify(updatedAgenda)
+    
+    if ( !medicoAgendaIsUpdated ) return {
+      menssagem: "Erro ao atualizar agenda do médico"
     }
 
     return {
-      messagem: "Agendamento realizado com sucesso",
-      agendamento: this.formatData(savedAgendamento)
+      menssagem: "Agendamento realizado com sucesso",
+      agendamento: formatAgendamentoData(savedAgendamento as IAgendamento)
     }
   }
 
-  public formatData(agendamento: IAgendamento): IAgendamento {
-    return {
-      ...agendamento,
-      data_horario: formatDateStringForISO8601(agendamento.data_horario)
-    }
-  }
-
-  public getAllAgendamentos(): IAgendamento[] {
-    const agendamentos: IAgendamento[] = AgendamentoDTO.getAllAgendaemntos()
+  public listAgendamentos(): IAgendamento[] {
+    const agendamentos: IAgendamento[] = AgendamentoDTO.listAgendamentos()
 
     const agendamentosFormatted: IAgendamento[] = agendamentos.map((agendamento) => ({
       ...agendamento,

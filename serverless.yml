@@ -7,41 +7,47 @@ provider:
   runtime: nodejs18.x
 
 functions:
+
   mainFunction:
     handler: src/mainFunction.handler
     events:
       - httpApi:
           path: /users
           method: get
-  medicosAgendasController:
+
+  medicosAgendasList:
     handler: src/agenda/controller/medicosAgendasController.listMedicosAgendas
     events:
       - httpApi:
           path: /agendas
           method: get
-  medicosAgendasControllerDelete:
+
+  medicosAgendasDelete:
     handler: src/agenda/controller/medicosAgendasController.removeMedicoAgenda
     events:
       - httpApi:
           path: /agendas/{id}
           method: delete
-  medicosAgendasControllerUpdate:
+
+  medicosAgendasUpdate:
     handler: src/agenda/controller/medicosAgendasController.updateMedicoAgenda
     events:
       - httpApi:
           path: /agendas
           method: put
-  agendamentosControllerCreate:
-    handler: src/agendamento/controller/agendamentosController.setAgendamento
+
+  agendamentoCreate:
+    handler: src/agendamento/controller/agendamentoController.setAgendamento
     events:
       - httpApi:
-          path: /agendamento
+          path: /agendamentos
           method: post
-  agendamentosControllerList:
-    handler: src/agendamento/controller/agendamentosController.getAllAgendamentos
+
+  agendamentoList:
+    handler: src/agendamento/controller/agendamentoController.listAgendamentos
     events:
       - httpApi:
-          path: /agendamento
+          path: /agendamentos
           method: get
 
 

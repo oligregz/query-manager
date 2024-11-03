@@ -1,7 +1,6 @@
 import { IMedicosAgendas } from "../interface/IMedicosAgendas"
-import { medicosAgendasMock } from "../mocks/medicosAgendasMock"
 import { formatDateStringForISO8601 } from "../../utils/formatDateStringForISO8601"
-import { listMedicosAgendas, removeMedicoAgenda, updateMedicoAgenda } from "../repository/medicosAgendasRepository"
+import * as MedicosAgendasRepository from "../repository/medicosAgendasRepository"
 import { IMedicoAgenda } from "../interface/IMedicoAgenda"
 
 export class MedicosAgendasDTO implements IMedicosAgendas {
@@ -12,24 +11,23 @@ export class MedicosAgendasDTO implements IMedicosAgendas {
     public horarios_disponiveis: string[]
   ) { }
 
-
   static getAllMedicosAgendas(): IMedicosAgendas[] {
-    return listMedicosAgendas()
+    return MedicosAgendasRepository.listMedicosAgendas()
   }
 
-  static getMedicoAgendaById(medicoId: number): IMedicosAgendas | undefined {
-    const medicoAgenda: IMedicosAgendas | undefined = medicosAgendasMock.find(medico =>  medico.id === medicoId)
+  static getMedicoAgendaById(medicoId: number): IMedicosAgendas {
+    const medicoAgenda: IMedicosAgendas = MedicosAgendasRepository.getMedicoAgendaById(medicoId)
     
     return medicoAgenda 
   }
 
-  static hasTimetableAvailable(data_horario: string, medicoId: number): Boolean {
+  static hasTimetableAvailable(data_horario: string, medicoId: number): boolean {
 
     const medicoAgenda = this.getMedicoAgendaById(medicoId) as IMedicosAgendas
     if ( !medicoAgenda ) return false
 
     const formattedDateToISO8601 = formatDateStringForISO8601(data_horario)
-    const timetableIsAvailable: Boolean = medicoAgenda.horarios_disponiveis.includes(formattedDateToISO8601)
+    const timetableIsAvailable: boolean = medicoAgenda.horarios_disponiveis.includes(formattedDateToISO8601)
 
     return timetableIsAvailable
   }
@@ -51,10 +49,10 @@ export class MedicosAgendasDTO implements IMedicosAgendas {
   }
 
   static removeMedicoAgenda(medicoId: number): IMedicosAgendas[] {
-    return removeMedicoAgenda(medicoId)
+    return MedicosAgendasRepository.removeMedicoAgenda(medicoId)
   }
 
-  static updateMedicoAgenda(medico: IMedicoAgenda): IMedicoAgenda[] | IMedicoAgenda {
-    return updateMedicoAgenda(medico)
+  static updateMedicoAgenda(medicoParam: IMedicoAgenda): IMedicoAgenda[] | IMedicoAgenda {
+    return MedicosAgendasRepository.updateMedicoAgenda(medicoParam)
   }
 }
