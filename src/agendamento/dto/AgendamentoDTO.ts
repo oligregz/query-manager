@@ -36,7 +36,7 @@ export class AgendamentoDTO implements IAgendamento {
     return maxId
   }
   
-  static hasAgendamento(agendamentoParam: IAgendamentoParams): Boolean{
+  static hasAgendamento(agendamentoParam: IAgendamentoParams): boolean{
     const hasAgendamento = AgendamentoRepository.hasAgendamento(agendamentoParam)
 
     return hasAgendamento

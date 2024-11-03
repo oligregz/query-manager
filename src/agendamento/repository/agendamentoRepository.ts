@@ -87,11 +87,11 @@ export function getMaxId(): number {
   }
 }
 
-export function hasAgendamento(agendamentoParam: IAgendamentoParams): Boolean {
+export function hasAgendamento(agendamentoParam: IAgendamentoParams): boolean {
   try {
     const agendamentos: IAgendamento[] = listAgendamentos()
 
-    const hasAgendamento: Boolean = agendamentos.some((agendamento) => {
+    const hasAgendamento: boolean = agendamentos.some((agendamento) => {
       agendamentoParam.medico_id === agendamento.medico_id
       && formatDateStringForISO8601(agendamentoParam.data_horario) === agendamento.data_horario
       && agendamentoParam.paciente_nome === agendamento.paciente_nome
