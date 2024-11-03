@@ -1,5 +1,4 @@
 import { IMedicosAgendas } from "../interface/IMedicosAgendas"
-import { medicosAgendasMock } from "../mocks/medicosAgendasMock"
 import { formatDateStringForISO8601 } from "../../utils/formatDateStringForISO8601"
 import * as MedicosAgendasRepository from "../repository/medicosAgendasRepository"
 import { IMedicoAgenda } from "../interface/IMedicoAgenda"
@@ -17,19 +16,19 @@ export class MedicosAgendasDTO implements IMedicosAgendas {
     return MedicosAgendasRepository.listMedicosAgendas()
   }
 
-  static getMedicoAgendaById(medicoId: number): IMedicoAgenda {
-    const medicoAgenda: IMedicoAgenda = MedicosAgendasRepository.getMedicoAgendaById(medicoId)
+  static getMedicoAgendaById(medicoId: number): IMedicosAgendas {
+    const medicoAgenda: IMedicosAgendas = MedicosAgendasRepository.getMedicoAgendaById(medicoId)
     
     return medicoAgenda 
   }
 
-  static hasTimetableAvailable(data_horario: string, medicoId: number): Boolean {
+  static hasTimetableAvailable(data_horario: string, medicoId: number): boolean {
 
     const medicoAgenda = this.getMedicoAgendaById(medicoId) as IMedicosAgendas
     if ( !medicoAgenda ) return false
 
     const formattedDateToISO8601 = formatDateStringForISO8601(data_horario)
-    const timetableIsAvailable: Boolean = medicoAgenda.horarios_disponiveis.includes(formattedDateToISO8601)
+    const timetableIsAvailable: boolean = medicoAgenda.horarios_disponiveis.includes(formattedDateToISO8601)
 
     return timetableIsAvailable
   }
@@ -50,7 +49,7 @@ export class MedicosAgendasDTO implements IMedicosAgendas {
     return false
   }
 
-  static removeMedicoAgenda(medicoId: number): IMedicoAgenda[] {
+  static removeMedicoAgenda(medicoId: number): IMedicosAgendas[] {
     return MedicosAgendasRepository.removeMedicoAgenda(medicoId)
   }
 

@@ -2,15 +2,17 @@ import { formatDate } from "../../utils/formatDate"
 import { IMedicosAgendas } from "../interface/IMedicosAgendas" 
 import { MedicosAgendasDTO } from "../dto/MedicosAgendasDTO"
 import { IMedicoAgenda } from "../interface/IMedicoAgenda"
+import { formatMedicosAgendasData } from "../../utils/formatMedicosAgendasData"
+import { IMedicosAgendasService } from "../interface/IMedicosAgendasService"
 
-export class MedicosAgendasService {
+export class MedicosAgendasService implements IMedicosAgendasService {
 
-  public getAll(): Object {
-    const medicosAgendasFormatted: IMedicosAgendas[] = this.formatData(
+  public getAll(): IMedicosAgendas[] {
+    const medicosAgendasFormatted: IMedicosAgendas[] = formatMedicosAgendasData(
       MedicosAgendasDTO.getAllMedicosAgendas()
     )
 
-    return { medicos: medicosAgendasFormatted }
+    return medicosAgendasFormatted 
   }
   
   public removeMedicoAgenda(medicoId: number): IMedicosAgendas[] {
@@ -20,18 +22,17 @@ export class MedicosAgendasService {
   public updateMedicoAgenda(medico: IMedicoAgenda): IMedicoAgenda[] | IMedicoAgenda {
     return MedicosAgendasDTO.updateMedicoAgenda(medico)
   }
-  
-  public formatData(medicosAgendasData: IMedicosAgendas[]): IMedicosAgendas[] {
-    const formattedData = medicosAgendasData.map((medicoAgendas: IMedicosAgendas) => {
-      return {
-        ...medicoAgendas,
-        horarios_disponiveis: medicoAgendas.horarios_disponiveis.map((horario_disponivel) => {
-          return formatDate(horario_disponivel) 
-        })
-      }
-    })
 
-    return formattedData
+  public getMedicoAgendaById(medicoId: number): IMedicosAgendas {
+    const medico: IMedicosAgendas = MedicosAgendasDTO.getMedicoAgendaById(medicoId)
+    return medico
+  }
+
+  public hasTimetableAvailable(data_horario: string, medicoId: number): boolean {
+    const hasTimetableAvailable: boolean = MedicosAgendasDTO
+    .hasTimetableAvailable(data_horario, medicoId)
+
+    return hasTimetableAvailable
   }
 
 }

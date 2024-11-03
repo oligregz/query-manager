@@ -1,7 +1,7 @@
 import { IAgendamento } from "../interface/IAgendamento"
 import { IAgendamentoParams } from "../interface/IAgendamentoParams"
 import { IAgendamentoResponse } from "../interface/IAgendamentoResponse"
-import  * as AgendamentosRepository  from "../repository/agendamentosRepository"
+import  * as AgendamentoRepository  from "../repository/agendamentoRepository"
 
 export class AgendamentoDTO implements IAgendamento {
 
@@ -13,31 +13,31 @@ export class AgendamentoDTO implements IAgendamento {
   ) { }
 
   static listAgendamentos(): IAgendamento[] {
-    const agendamentos: IAgendamento[] = AgendamentosRepository.listAgendamentos()
+    const agendamentos: IAgendamento[] = AgendamentoRepository.listAgendamentos()
 
     return agendamentos
   }
 
   static getAgendamentoById(agendamentoId: number): IAgendamento | IAgendamentoResponse {
-    const agendamento: IAgendamento | IAgendamentoResponse = AgendamentosRepository
+    const agendamento: IAgendamento = AgendamentoRepository
     .getAgendamentoById(agendamentoId)
 
     return agendamento
   }
 
   static setAgendamento(agendamentoParam: IAgendamentoParams): IAgendamento {
-    const newAgendamento = AgendamentosRepository.setAgendamento(agendamentoParam)
+    const newAgendamento = AgendamentoRepository.setAgendamento(agendamentoParam)
 
     return newAgendamento
   }
 
   static getMaxId(): number {
-    const maxId = AgendamentosRepository.getMaxId()
+    const maxId = AgendamentoRepository.getMaxId()
     return maxId
   }
   
   static hasAgendamento(agendamentoParam: IAgendamentoParams): Boolean{
-    const hasAgendamento = AgendamentosRepository.hasAgendamento(agendamentoParam)
+    const hasAgendamento = AgendamentoRepository.hasAgendamento(agendamentoParam)
 
     return hasAgendamento
   }

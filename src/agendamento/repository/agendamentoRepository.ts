@@ -4,7 +4,6 @@ import { IAgendamento } from "../interface/IAgendamento"
 import { IAgendamentoParams } from "../interface/IAgendamentoParams"
 import { formatDateStringForISO8601 } from "../../utils/formatDateStringForISO8601"
 import { handleError } from "../../errors/handleError"
-import { IAgendamentoResponse } from "../interface/IAgendamentoResponse"
 
 export function readAgendamentos(): IAgendamento[] {
   try {
@@ -13,7 +12,7 @@ export function readAgendamentos(): IAgendamento[] {
     return JSON.parse(data)
 
   } catch (error) {
-    handleError(error, 'Erro ao ler os magandamentos :/')
+    handleError(error, 'Erro ao ler arquivo de agandamentos')
   }
 }
 
@@ -22,7 +21,7 @@ export function saveAgendamentos(agendamentos: IAgendamento[]): void {
     fs.writeFileSync(agendamentosMockFilePath, JSON.stringify(agendamentos, null, 2), 'utf-8')
 
   } catch (error) {
-    handleError(error, 'Erro ao salvar agendamentos :/')
+    handleError(error, 'Erro ao salvar agendamentos')
   }
 }
 
@@ -34,7 +33,7 @@ export function listAgendamentos(): IAgendamento[] {
     return agendamentos
 
   } catch (error) {
-    handleError(error, 'Erro ao listar agendamentos :/')
+    handleError(error, 'Erro ao listar agendamentos')
   }
 }
 
@@ -48,7 +47,7 @@ export function getAgendamentoById(agendamentoId: number): IAgendamento {
     return agendamento
 
   } catch (error) {
-    handleError(error, 'Erro ao buscar agendamento :/')
+    handleError(error, 'Erro ao buscar agendamento')
   }
 }
 
@@ -71,7 +70,7 @@ export function setAgendamento(agendamentoParam: IAgendamentoParams): IAgendamen
     return savedAgendamento
 
   } catch (error) {
-    handleError(error, 'Erro ao buscar médico :/')
+    handleError(error, 'Erro ao buscar médico')
   }
 }
 
@@ -84,7 +83,7 @@ export function getMaxId(): number {
     )
 
   } catch (error) {
-    handleError(error, 'Erro ao buscar maior id :/')
+    handleError(error, 'Erro ao buscar maior id')
   }
 }
 
@@ -103,6 +102,6 @@ export function hasAgendamento(agendamentoParam: IAgendamentoParams): Boolean {
     return true
 
   } catch (error) {
-    handleError(error, 'Erro ao buscar agendamento :/')
+    handleError(error, 'Erro ao buscar agendamento')
   }
 }

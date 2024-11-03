@@ -1,20 +1,28 @@
 import { IAgendamento } from "../interface/IAgendamento"
 import { AgendamentoDTO } from "../dto/AgendamentoDTO"
 import { IAgendamentoParams } from "../interface/IAgendamentoParams"
-import { formatDateStringForISO8601 } from "../../utils/formatDateStringForISO8601"
-import { MedicosAgendasDTO } from "../../agenda/dto/MedicosAgendasDTO"
 import { formatDatesISOToString } from "../../utils/formatDatesISOToString"
 import { formatDate } from "../../utils/formatDate"
 import { IAgendamentoResponse } from "../interface/IAgendamentoResponse"
+import { IMedicosAgendasService } from "../../agenda/interface/IMedicosAgendasService"
+import { IMedicoAgenda } from "../../agenda/interface/IMedicoAgenda"
+import { formatAgendamentoData } from "../../utils/formatAgendamentoData"
 
 export class AgendamentoService {
 
-  public setAgendamento(agendamentoBody: IAgendamentoParams): IAgendamento | IAgendamentoResponse {
-    const hasMedicoAgenda = MedicosAgendasDTO.getMedicoAgendaById(agendamentoBody.medico_id)
-    if ( !hasMedicoAgenda ) return { menssagem: "Médico não encontrado" }
+  private medicosAgendasService: IMedicosAgendasService
+
+  constructor(medicosAgendasService: IMedicosAgendasService) {
+    this.medicosAgendasService = medicosAgendasService
+  }
+
+  public setAgendamento(agendamentoBody: IAgendamentoParams): IAgendamentoResponse {
+
+    const medicoAgendas: IMedicoAgenda = this.medicosAgendasService.getMedicoAgendaById(agendamentoBody.medico_id)
+    if ( !medicoAgendas.hasOwnProperty('nome') ) return { menssagem: "Médico não encontrado" }
     
     // 2) o médico tem disponibilidade para o horário passado
-    const scheduleIsAvailable: Boolean = MedicosAgendasDTO.hasTimetableAvailable(
+    const scheduleIsAvailable: Boolean = this.medicosAgendasService.hasTimetableAvailable(
       agendamentoBody.data_horario,
       agendamentoBody.medico_id
     )
@@ -22,19 +30,19 @@ export class AgendamentoService {
     if ( !scheduleIsAvailable ) {
       return {
         menssagem: "Horário não disponível",
-        horarios_disponiveis: formatDatesISOToString(hasMedicoAgenda.horarios_disponiveis)
+        horarios_disponiveis: formatDatesISOToString(medicoAgendas.horarios_disponiveis)
       }
     }
 
     // 3) valida se o agendamento já existe
-    const hasAgendamento: IAgendamento | IAgendamentoResponse = AgendamentoDTO.hasAgendamento(agendamentoBody)
+    const hasAgendamento: Boolean = AgendamentoDTO.hasAgendamento(agendamentoBody)
     if ( hasAgendamento ) return { menssagem: "Agendamento já existe" }
 
     // 4) cria novo agendamento
-    const newAgendamento = {
+    const newAgendamento: IAgendamento = {
       ...agendamentoBody,
       id: AgendamentoDTO.getMaxId() + 1
-    } as IAgendamento
+    }
 
     AgendamentoDTO.setAgendamento(newAgendamento)
 
@@ -42,22 +50,16 @@ export class AgendamentoService {
     const savedAgendamento: IAgendamento | IAgendamentoResponse = AgendamentoDTO
     .getAgendamentoById(newAgendamento.id)
 
-    if ( !savedAgendamento ) {
+    if ( !savedAgendamento || 'menssagem' in savedAgendamento) {
       return { menssagem: "Erro ao salvar o agendamento." }
     }
 
     return {
       menssagem: "Agendamento realizado com sucesso",
-      agendamento: this.formatData(savedAgendamento)
+      agendamento: formatAgendamentoData(savedAgendamento as IAgendamento)
     }
   }
 
-  public formatData(agendamento: IAgendamento): IAgendamento {
-    return {
-      ...agendamento,
-      data_horario: formatDateStringForISO8601(agendamento.data_horario)
-    }
-  }
 
   public getAllAgendamentos(): IAgendamento[] {
     const agendamentos: IAgendamento[] = AgendamentoDTO.listAgendamentos()

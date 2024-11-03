@@ -53,15 +53,12 @@ export function removeMedicoAgenda(medicoId: number): IMedicosAgendas[] {
   }
 }
 
-export function getMedicoAgendaById(medicoId: number): IMedicoAgenda {
+export function getMedicoAgendaById(medicoId: number): IMedicosAgendas {
   try {
     const medicos: IMedicosAgendas[] = listMedicosAgendas()
 
-    if ( !medicos ) return {
-      mensagem: "Médicos não encontrados :/"
-    }
 
-    const medico: IMedicoAgenda = medicos.find(medico => medico.id === medicoId)
+    const medico: IMedicosAgendas = medicos.find(medico => medico.id === medicoId)
 
     return medico
 
