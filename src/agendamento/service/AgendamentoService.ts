@@ -9,9 +9,9 @@ import { IAgendamentoResponse } from "../interface/IAgendamentoResponse"
 
 export class AgendamentoService {
 
-  public setAgendamento(agendamentoBody: IAgendamentoParams): IAgendamentoResponse {
+  public setAgendamento(agendamentoBody: IAgendamentoParams): IAgendamento | IAgendamentoResponse {
     const hasMedicoAgenda = MedicosAgendasDTO.getMedicoAgendaById(agendamentoBody.medico_id)
-    if ( !hasMedicoAgenda ) return { messagem: "Médico não encontrado" }
+    if ( !hasMedicoAgenda ) return { menssagem: "Médico não encontrado" }
     
     // 2) o médico tem disponibilidade para o horário passado
     const scheduleIsAvailable: Boolean = MedicosAgendasDTO.hasTimetableAvailable(
@@ -21,14 +21,14 @@ export class AgendamentoService {
 
     if ( !scheduleIsAvailable ) {
       return {
-        messagem: "Horário não disponível",
+        menssagem: "Horário não disponível",
         horarios_disponiveis: formatDatesISOToString(hasMedicoAgenda.horarios_disponiveis)
       }
     }
 
     // 3) valida se o agendamento já existe
-    const hasAgendamento: IAgendamento | undefined = AgendamentoDTO.hasAgendamento(agendamentoBody)
-    if ( hasAgendamento ) return { messagem: "Agendamento já existe" }
+    const hasAgendamento: IAgendamento | IAgendamentoResponse = AgendamentoDTO.hasAgendamento(agendamentoBody)
+    if ( hasAgendamento ) return { menssagem: "Agendamento já existe" }
 
     // 4) cria novo agendamento
     const newAgendamento = {
@@ -39,13 +39,15 @@ export class AgendamentoService {
     AgendamentoDTO.setAgendamento(newAgendamento)
 
     // 5) verifica se agendamento foi salvo
-    const savedAgendamento: IAgendamento | undefined = AgendamentoDTO.getAgendamentoById(newAgendamento.id)
+    const savedAgendamento: IAgendamento | IAgendamentoResponse = AgendamentoDTO
+    .getAgendamentoById(newAgendamento.id)
+
     if ( !savedAgendamento ) {
-      return { messagem: "Erro ao salvar o agendamento." }
+      return { menssagem: "Erro ao salvar o agendamento." }
     }
 
     return {
-      messagem: "Agendamento realizado com sucesso",
+      menssagem: "Agendamento realizado com sucesso",
       agendamento: this.formatData(savedAgendamento)
     }
   }
@@ -58,7 +60,7 @@ export class AgendamentoService {
   }
 
   public getAllAgendamentos(): IAgendamento[] {
-    const agendamentos: IAgendamento[] = AgendamentoDTO.getAllAgendaemntos()
+    const agendamentos: IAgendamento[] = AgendamentoDTO.listAgendamentos()
 
     const agendamentosFormatted: IAgendamento[] = agendamentos.map((agendamento) => ({
       ...agendamento,

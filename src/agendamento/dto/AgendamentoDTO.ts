@@ -1,7 +1,7 @@
-import { formatDateStringForISO8601 } from "../../utils/formatDateStringForISO8601"
 import { IAgendamento } from "../interface/IAgendamento"
 import { IAgendamentoParams } from "../interface/IAgendamentoParams"
-import { agendamentosMock } from "../mocks/agendamentosMock"
+import { IAgendamentoResponse } from "../interface/IAgendamentoResponse"
+import  * as AgendamentosRepository  from "../repository/agendamentosRepository"
 
 export class AgendamentoDTO implements IAgendamento {
 
@@ -12,41 +12,33 @@ export class AgendamentoDTO implements IAgendamento {
     public data_horario: string
   ) { }
 
-  static getAllAgendaemntos(): IAgendamento[] | undefined {
-    const agendamentos: IAgendamento[] | undefined = agendamentosMock
+  static listAgendamentos(): IAgendamento[] {
+    const agendamentos: IAgendamento[] = AgendamentosRepository.listAgendamentos()
+
     return agendamentos
   }
 
-  static getAgendamentoById(id: number): IAgendamento | undefined {
-    const agendamento: IAgendamento | undefined = agendamentosMock
-    .find(agendamentoParam => agendamentoParam.id === id)
+  static getAgendamentoById(agendamentoId: number): IAgendamento | IAgendamentoResponse {
+    const agendamento: IAgendamento | IAgendamentoResponse = AgendamentosRepository
+    .getAgendamentoById(agendamentoId)
 
     return agendamento
   }
-  
-  static setAgendamento(agendamento: IAgendamento) {
-  
-    const maxId: number = this.getMaxId() + 1
 
-    agendamentosMock.push({
-      ...agendamento,
-      id: maxId
-    })
-  }
+  static setAgendamento(agendamentoParam: IAgendamentoParams): IAgendamento {
+    const newAgendamento = AgendamentosRepository.setAgendamento(agendamentoParam)
 
-  static hasAgendamento(agendamentoParam: IAgendamentoParams): IAgendamento | undefined {
-    const hasAgendamento: IAgendamento | undefined = agendamentosMock.find((agendamento) => {
-      agendamentoParam.medico_id === agendamento.medico_id
-      && formatDateStringForISO8601(agendamentoParam.data_horario) === agendamento.data_horario
-      && agendamentoParam.paciente_nome === agendamento.paciente_nome
-    })
-    return hasAgendamento
+    return newAgendamento
   }
 
   static getMaxId(): number {
-    return agendamentosMock.reduce((maxId, agendamento) => 
-      agendamento.id > maxId ? agendamento.id : maxId, 0
-    )
+    const maxId = AgendamentosRepository.getMaxId()
+    return maxId
   }
+  
+  static hasAgendamento(agendamentoParam: IAgendamentoParams): Boolean{
+    const hasAgendamento = AgendamentosRepository.hasAgendamento(agendamentoParam)
 
+    return hasAgendamento
+  }
 }
