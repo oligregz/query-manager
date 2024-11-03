@@ -57,8 +57,8 @@ export function setAgendamento(agendamentoParam: IAgendamentoParams): IAgendamen
     const maxId: number = this.getMaxId() + 1
 
     const newAgendamento: IAgendamento = {
-      ...agendamentoParam,
-      id: maxId
+      id: maxId,
+      ...agendamentoParam
     }
 
     agendamentos.push(newAgendamento)
