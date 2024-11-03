@@ -11,7 +11,6 @@ export class MedicosAgendasDTO implements IMedicosAgendas {
     public horarios_disponiveis: string[]
   ) { }
 
-
   static getAllMedicosAgendas(): IMedicosAgendas[] {
     return MedicosAgendasRepository.listMedicosAgendas()
   }
@@ -53,7 +52,7 @@ export class MedicosAgendasDTO implements IMedicosAgendas {
     return MedicosAgendasRepository.removeMedicoAgenda(medicoId)
   }
 
-  static updateMedicoAgenda(medico: IMedicoAgenda): IMedicoAgenda[] | IMedicoAgenda {
-    return MedicosAgendasRepository.updateMedicoAgenda(medico)
+  static updateMedicoAgenda(medicoParam: IMedicoAgenda): IMedicoAgenda[] | IMedicoAgenda {
+    return MedicosAgendasRepository.updateMedicoAgenda(medicoParam)
   }
 }

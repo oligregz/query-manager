@@ -72,16 +72,14 @@ export function updateMedicoAgenda(medicoParam: IMedicoAgenda ): IMedicoAgenda[]
     const medicos: IMedicosAgendas[] = listMedicosAgendas()
 
     if ( !medicos ) return {
-      mensagem: "Médicos não encontrados :/"
+      mensagem: "Médicos não encontrados"
     }
 
     const updatedMedicos: IMedicoAgenda[] = medicos.map((medico) => {
       if ( medico.id === medicoParam.id ) {
         return {
           ...medico,
-          nome: medicoParam.nome,
-          especialidade: medicoParam.especialidade,
-          horarios_disponiveis: medicoParam.horarios_disponiveis
+          ...medicoParam
         }
       }
       return medico
@@ -89,7 +87,7 @@ export function updateMedicoAgenda(medicoParam: IMedicoAgenda ): IMedicoAgenda[]
 
     saveMedicosAgendas(updatedMedicos)
 
-    return updatedMedicos
+    return getMedicoAgendaById(medicoParam.id)
 
   } catch (error) {
     handleError(error, 'Erro ao remover médico')

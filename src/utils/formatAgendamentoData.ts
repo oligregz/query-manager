@@ -1,9 +1,9 @@
 import { IAgendamento } from "../agendamento/interface/IAgendamento"
-import { formatDateStringForISO8601 } from "./formatDateStringForISO8601"
+import { formatDate } from "./formatDate"
 
 export const formatAgendamentoData = (agendamento: IAgendamento): IAgendamento => {
   return {
     ...agendamento,
-    data_horario: formatDateStringForISO8601(agendamento.data_horario)
+    data_horario: formatDate(agendamento.data_horario)
   }
 }

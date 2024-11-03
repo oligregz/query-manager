@@ -8,7 +8,7 @@ const medicosAgendasService = new MedicosAgendasService()
 export const listMedicosAgendas = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   try {
     const agendas: Object = {
-      medicos: medicosAgendasService.getAll()
+      medicos: medicosAgendasService.listMedicosAgendas()
     }
 
     return {

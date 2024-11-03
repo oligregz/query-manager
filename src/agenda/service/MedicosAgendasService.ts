@@ -1,4 +1,3 @@
-import { formatDate } from "../../utils/formatDate" 
 import { IMedicosAgendas } from "../interface/IMedicosAgendas" 
 import { MedicosAgendasDTO } from "../dto/MedicosAgendasDTO"
 import { IMedicoAgenda } from "../interface/IMedicoAgenda"
@@ -7,7 +6,7 @@ import { IMedicosAgendasService } from "../interface/IMedicosAgendasService"
 
 export class MedicosAgendasService implements IMedicosAgendasService {
 
-  public getAll(): IMedicosAgendas[] {
+  public listMedicosAgendas(): IMedicosAgendas[] {
     const medicosAgendasFormatted: IMedicosAgendas[] = formatMedicosAgendasData(
       MedicosAgendasDTO.getAllMedicosAgendas()
     )

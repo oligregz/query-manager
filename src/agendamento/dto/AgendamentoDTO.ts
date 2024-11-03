@@ -13,32 +13,23 @@ export class AgendamentoDTO implements IAgendamento {
   ) { }
 
   static listAgendamentos(): IAgendamento[] {
-    const agendamentos: IAgendamento[] = AgendamentoRepository.listAgendamentos()
-
-    return agendamentos
+    return AgendamentoRepository.listAgendamentos()
   }
 
   static getAgendamentoById(agendamentoId: number): IAgendamento | IAgendamentoResponse {
-    const agendamento: IAgendamento = AgendamentoRepository
-    .getAgendamentoById(agendamentoId)
-
-    return agendamento
+    return AgendamentoRepository.getAgendamentoById(agendamentoId)
   }
 
   static setAgendamento(agendamentoParam: IAgendamentoParams): IAgendamento {
-    const newAgendamento = AgendamentoRepository.setAgendamento(agendamentoParam)
+    return AgendamentoRepository.setAgendamento(agendamentoParam)
 
-    return newAgendamento
   }
 
   static getMaxId(): number {
-    const maxId = AgendamentoRepository.getMaxId()
-    return maxId
+    return AgendamentoRepository.getMaxId()
   }
   
   static hasAgendamento(agendamentoParam: IAgendamentoParams): boolean{
-    const hasAgendamento = AgendamentoRepository.hasAgendamento(agendamentoParam)
-
-    return hasAgendamento
+    return AgendamentoRepository.hasAgendamento(agendamentoParam)
   }
 }
