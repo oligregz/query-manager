@@ -6,7 +6,9 @@
     "dev": "ts-node src/utils/resetTotalData.ts && npx serverless offline",
     "lint": "eslint . -c .eslintrc.js",
     "data:reset": "ts-node src/utils/resetTotalData.ts",
-    "test": "jest"
+    "pretest": "rm -rf .build",
+    "test": "jest",
+    "test:all": "npm run pretest && npm run test"
   },
   "keywords": [],
   "author": "",
@@ -19,7 +21,6 @@
     "@typescript-eslint/parser": "^8.12.2",
     "eslint": "^8.57.1",
     "jest": "^29.7.0",
-    "mkdirp": "^3.0.1",
     "nodemon": "^3.1.7",
     "serverless": "^3",
     "serverless-offline": "^11.6.0",

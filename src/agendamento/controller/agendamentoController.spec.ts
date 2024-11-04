@@ -2,11 +2,6 @@ import { APIGatewayProxyEvent } from "aws-lambda"
 import { setAgendamento } from "./agendamentoController"
 import { handleError } from "../../errors/handleError"
 import { eventTestMock } from "../mocks/event"
-import { resetMockData } from "../../utils/resetMockData"
-import {
-  agendamentosMockFilePath,
-  agendamentosMockDefaultFilePath
-} from "../mocks/agendamentosMock"
 import { resetTotalData } from "../../utils/resetTotalData"
 
 jest.mock("../../errors/handleError")
@@ -20,8 +15,6 @@ describe("entity: medicos | layer: controller | file: agendamentosController", (
     await resetTotalData()
   })
 
-  
-
   describe("[success]", () => {
     it("[1] - should add appointment", async () => {
 
@@ -30,8 +23,6 @@ describe("entity: medicos | layer: controller | file: agendamentosController", (
         statusCode,
         body: JSON.parse(body)
       }
-
-      console.log("result: ", result)
 
       expect(!!result.statusCode).toBeTruthy()
       expect(!!result.body).toBeTruthy()
