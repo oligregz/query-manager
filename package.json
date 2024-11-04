@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "npx serverless offline",
     "lint": "eslint . -c .eslintrc.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "data:reset": "ts-node src/utils/resetTotalData.ts",
+    "test": "jest"
   },
   "keywords": [],
   "author": "",
@@ -24,6 +25,7 @@
     "serverless-offline": "^11.6.0",
     "serverless-plugin-typescript": "^2.1.5",
     "ts-jest": "^29.2.5",
+    "ts-node": "^10.9.1",
     "typescript": "^5.6.3"
   }
 }
