@@ -11,7 +11,7 @@ export const setAgendamento = async (event: APIGatewayProxyEvent): Promise<APIGa
 
     const medicosAgendasService = new MedicosAgendasService()
     const agendamentoService = new AgendamentoService(medicosAgendasService)
-    
+
     const agendamentoBody: IAgendamentoParams = JSON.parse(event.body!)    
     const savedAgendamento: IAgendamentoResponse = agendamentoService.setAgendamento(agendamentoBody)
     
@@ -30,7 +30,7 @@ export const setAgendamento = async (event: APIGatewayProxyEvent): Promise<APIGa
     
 
   } catch (error) {
-    handleError(error, 'Erro ao realizar agendamento')
+    handleError(error, "Erro ao realizar agendamento")
   }
 }
 
@@ -47,6 +47,6 @@ export const listAgendamentos = async (event: APIGatewayProxyEvent): Promise<API
       body: JSON.stringify(agendamentos)
     }
   } catch (error) {
-    handleError(error, 'Erro ao listar agendamentos')
+    handleError(error, "Erro ao listar agendamentos")
   }
 }

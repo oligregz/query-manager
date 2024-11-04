@@ -5,9 +5,9 @@ import { handleError } from "../../errors/handleError"
 
 const medicosAgendasService = new MedicosAgendasService()
 
-export const listMedicosAgendas = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+export const listMedicosAgendas = async (_event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   try {
-    const agendas: Object = {
+    const agendas: object = {
       medicos: medicosAgendasService.listMedicosAgendas()
     }
 
@@ -16,35 +16,35 @@ export const listMedicosAgendas = async (event: APIGatewayProxyEvent): Promise<A
       body: JSON.stringify(agendas)
     }
   } catch (error) {
-    handleError(error, 'Erro ao listar documentos')
+    handleError(error, "Erro ao listar documentos")
   }
 }
 
 export const removeMedicoAgenda = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   try {
     const medicoId: number = parseInt(event.pathParameters.id)
-    const medicos: Object = medicosAgendasService.removeMedicoAgenda(medicoId)
+    const medicos: object = medicosAgendasService.removeMedicoAgenda(medicoId)
 
     return {
       statusCode: 200,
       body: JSON.stringify(medicos)
     }
   } catch (error) {
-    handleError(error, 'Erro ao remover documento')
+    handleError(error, "Erro ao remover documento")
   }
 }
 
 export const updateMedicoAgenda = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   try {
     const body: IMedicoAgenda = JSON.parse(event.body!)
-    const medicos: Object = medicosAgendasService.updateMedicoAgenda(body)
+    const medicos: object = medicosAgendasService.updateMedicoAgenda(body)
 
     return {
       statusCode: 200,
       body: JSON.stringify(medicos)
     }
   } catch (error) {
-    handleError(error, 'Erro ao atualizar documento')
+    handleError(error, "Erro ao atualizar documento")
   }
 }
 

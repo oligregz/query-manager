@@ -12,6 +12,13 @@ export class AgendamentoDTO implements IAgendamento {
     public data_horario: string
   ) { }
 
+  public getDetails(): string {
+    return `Agendamento ID: ${this.id},
+    Médico ID: ${this.medico_id},
+    Paciente: ${this.paciente_nome},
+    Data e Hora: ${this.data_horario}`
+  }
+
   static listAgendamentos(): IAgendamento[] {
     return AgendamentoRepository.listAgendamentos()
   }
