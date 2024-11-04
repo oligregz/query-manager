@@ -8,7 +8,6 @@ import { handleError } from "../../errors/handleError"
 
 export const setAgendamento = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   try {
-
     const medicosAgendasService = new MedicosAgendasService()
     const agendamentoService = new AgendamentoService(medicosAgendasService)
 
@@ -34,7 +33,7 @@ export const setAgendamento = async (event: APIGatewayProxyEvent): Promise<APIGa
   }
 }
 
-export const listAgendamentos = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+export const listAgendamentos = async (_event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   try {
 
     const medicosAgendasService = new MedicosAgendasService()

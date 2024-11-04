@@ -5,7 +5,7 @@ import { handleError } from "../../errors/handleError"
 
 jest.mock("../../errors/handleError")
 
-describe("entity: medicos | layer: controller | file: medicosAgendasController.ts", () => {
+describe("entity: medicos | layer: controller | file: medicosAgendasController", () => {
   describe("[success]", () => {
     it("[1] - should return a list of medical agendas", async () => {
       const event: APIGatewayProxyEvent = eventTestMock

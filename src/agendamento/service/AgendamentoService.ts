@@ -23,7 +23,7 @@ export class AgendamentoService {
     const medicoAgendas: IMedicoAgenda = this.medicosAgendasService.getMedicoAgendaById(agendamentoBody.medico_id)
     if ( !medicoAgendas.nome ) return { menssagem: "Médico não encontrado" }
     
-    // 2) o médico tem disponibilidade para o horário passado
+    // 2) valida se o médico tem disponibilidade para o horário passado
     const scheduleIsAvailable: boolean = this.medicosAgendasService.hasTimetableAvailable(
       agendamentoBody.data_horario,
       agendamentoBody.medico_id

@@ -4,4 +4,5 @@ export interface IAgendamentoResponse {
   menssagem?: string
   agendamento?: IAgendamento
   horarios_disponiveis?: string[]
+  data_horario?: string
 }
