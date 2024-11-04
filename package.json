@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "dev": "npx serverless offline",
+    "dev": "ts-node src/utils/resetTotalData.ts && npx serverless offline",
     "lint": "eslint . -c .eslintrc.js",
     "data:reset": "ts-node src/utils/resetTotalData.ts",
     "test": "jest"
