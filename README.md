@@ -43,7 +43,7 @@ Appointments are recorded if they do not exist and if the doctor has the appoint
 
 ## 🌐 Flow application
 
-- https://youtu.be
+- https://youtu.be/gM1aOtipfNQ
 
 <br>
 
@@ -51,6 +51,15 @@ Appointments are recorded if they do not exist and if the doctor has the appoint
 ## 📖 Presentation route
 
 - http://localhost:3000/hello
+
+<br>
+
+## 🔍 ESLint
+
+Run lint:
+```
+npm run lint
+```
 
 <br>
 
@@ -92,7 +101,7 @@ npm run dev
 ```
 <br><br>
 
-## Routes:
+## 🏁 Routes:
 
 ### List doctors:
 - [GET] - http://localhost:3000/agendas
@@ -166,7 +175,7 @@ npm run dev
 
 <br>
 
-## Reset all data
+## 🌀 Reset all data
 
 The data is reset every time the API is started or when tests are run automatically, but if you want to reset it manually, run:
 
@@ -176,7 +185,7 @@ npm run data:reset
 
 <br>
 
-## EXTRAS:
+## 🎉 EXTRAS:
 
 The api has more routes implemented at the development level for table testing and performing some validations.
 
