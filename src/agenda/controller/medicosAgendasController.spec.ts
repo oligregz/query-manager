@@ -15,7 +15,7 @@ describe("entity: medicos | layer: controller | file: medicosAgendasController",
         statusCode,
         body: JSON.parse(body)
       }
-  
+
       expect(!!result.statusCode).toBeTruthy()
       expect(result.statusCode).toBe(200)
       expect(!!result.body.medicos).toBeTruthy()
