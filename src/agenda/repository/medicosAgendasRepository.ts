@@ -30,7 +30,7 @@ export function listMedicosAgendas(): IMedicosAgendas[] {
     const medicos: IMedicosAgendas[] = readMedicosAgendas()
     if ( !medicos ) return []
 
-    return  medicos
+    return medicos
 
   } catch (error) {
     handleError(error, "Erro ao listar médicos")

@@ -2,12 +2,13 @@ import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda"
 import { MedicosAgendasService } from "../service/MedicosAgendasService"
 import { IMedicoAgenda } from "../interface/IMedicoAgenda"
 import { handleError } from "../../errors/handleError"
+import { IMedicosAgendas } from "../interface/IMedicosAgendas"
 
 const medicosAgendasService = new MedicosAgendasService()
 
 export const listMedicosAgendas = async (_event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   try {
-    const agendas: object = {
+    const agendas: { medicos: IMedicosAgendas[] } = {
       medicos: medicosAgendasService.listMedicosAgendas()
     }
 
@@ -23,6 +24,7 @@ export const listMedicosAgendas = async (_event: APIGatewayProxyEvent): Promise<
 export const removeMedicoAgenda = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   try {
     const medicoId: number = parseInt(event.pathParameters.id)
+
     const medicos: object = medicosAgendasService.removeMedicoAgenda(medicoId)
 
     return {

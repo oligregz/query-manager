@@ -8,7 +8,7 @@ export class MedicosAgendasService implements IMedicosAgendasService {
 
   public listMedicosAgendas(): IMedicosAgendas[] {
     const medicosAgendasFormatted: IMedicosAgendas[] = formatMedicosAgendasData(
-      MedicosAgendasDTO.getAllMedicosAgendas()
+      MedicosAgendasDTO.listMedicosAgendas()
     )
 
     return medicosAgendasFormatted 
