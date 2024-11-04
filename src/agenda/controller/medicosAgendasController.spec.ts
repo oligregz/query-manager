@@ -33,8 +33,7 @@ describe("entity: medicos | layer: controller | file: medicosAgendasController.t
         throw new Error(errorMessage)
 
       } catch (error) {
-        const handledError = handleError(error)
-        console.log(handledError)
+        handleError(error)
 
         expect((error as Error).message).toBe(errorMessage)
 
