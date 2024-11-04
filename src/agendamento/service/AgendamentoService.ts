@@ -21,10 +21,10 @@ export class AgendamentoService {
 
     // 1) valida se médico existe
     const medicoAgendas: IMedicoAgenda = this.medicosAgendasService.getMedicoAgendaById(agendamentoBody.medico_id)
-    if ( !medicoAgendas.hasOwnProperty('nome') ) return { menssagem: "Médico não encontrado" }
+    if ( !medicoAgendas.nome ) return { menssagem: "Médico não encontrado" }
     
     // 2) o médico tem disponibilidade para o horário passado
-    const scheduleIsAvailable: Boolean = this.medicosAgendasService.hasTimetableAvailable(
+    const scheduleIsAvailable: boolean = this.medicosAgendasService.hasTimetableAvailable(
       agendamentoBody.data_horario,
       agendamentoBody.medico_id
     )
@@ -50,9 +50,9 @@ export class AgendamentoService {
 
     // 5) verifica se agendamento foi salvo
     const savedAgendamento: IAgendamento | IAgendamentoResponse = AgendamentoDTO
-    .getAgendamentoById(newAgendamento.id)
+      .getAgendamentoById(newAgendamento.id)
 
-    if ( !savedAgendamento || 'menssagem' in savedAgendamento) {
+    if ( !savedAgendamento || "menssagem" in savedAgendamento) {
       return { menssagem: "Erro ao salvar o agendamento." }
     }
 
@@ -75,8 +75,8 @@ export class AgendamentoService {
 
     // 7) valida se a agenda do médico foi atualizada
     const currentAgenda: string[] = this.medicosAgendasService
-    .getMedicoAgendaById(agendamentoBody.medico_id)
-    .horarios_disponiveis
+      .getMedicoAgendaById(agendamentoBody.medico_id)
+      .horarios_disponiveis
 
     const medicoAgendaIsUpdated: boolean = JSON.stringify(currentAgenda) === JSON.stringify(updatedAgenda)
     

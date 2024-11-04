@@ -5,7 +5,6 @@
   "scripts": {
     "dev": "npx serverless offline",
     "lint": "eslint . -c .eslintrc.js",
-    "lint:watch": "nodemon --ignore .eslintrc.js --delay 500ms --watch './**/*.ts' --watch './**/*.js' --exec 'eslint . -c .eslintrc.js'",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

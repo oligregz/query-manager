@@ -12,7 +12,7 @@ functions:
     handler: src/mainFunction.handler
     events:
       - httpApi:
-          path: /users
+          path: /hello
           method: get
 
   medicosAgendasList:

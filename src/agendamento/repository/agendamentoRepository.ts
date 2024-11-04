@@ -1,5 +1,5 @@
 import { agendamentosMockFilePath } from "../mocks/agendamentosMock"
-import * as fs from 'fs'
+import * as fs from "fs"
 import { IAgendamento } from "../interface/IAgendamento"
 import { IAgendamentoParams } from "../interface/IAgendamentoParams"
 import { formatDateStringForISO8601 } from "../../utils/formatDateStringForISO8601"
@@ -7,21 +7,21 @@ import { handleError } from "../../errors/handleError"
 
 export function readAgendamentos(): IAgendamento[] {
   try {
-    const data = fs.readFileSync(agendamentosMockFilePath, 'utf-8')
+    const data = fs.readFileSync(agendamentosMockFilePath, "utf-8")
 
     return JSON.parse(data)
 
   } catch (error) {
-    handleError(error, 'Erro ao ler arquivo de agandamentos')
+    handleError(error, "Erro ao ler arquivo de agandamentos")
   }
 }
 
 export function saveAgendamentos(agendamentos: IAgendamento[]): void {
   try {
-    fs.writeFileSync(agendamentosMockFilePath, JSON.stringify(agendamentos, null, 2), 'utf-8')
+    fs.writeFileSync(agendamentosMockFilePath, JSON.stringify(agendamentos, null, 2), "utf-8")
 
   } catch (error) {
-    handleError(error, 'Erro ao salvar agendamentos')
+    handleError(error, "Erro ao salvar agendamentos")
   }
 }
 
@@ -33,7 +33,7 @@ export function listAgendamentos(): IAgendamento[] {
     return agendamentos
 
   } catch (error) {
-    handleError(error, 'Erro ao listar agendamentos')
+    handleError(error, "Erro ao listar agendamentos")
   }
 }
 
@@ -42,12 +42,12 @@ export function getAgendamentoById(agendamentoId: number): IAgendamento {
     const agendamentos: IAgendamento[] = listAgendamentos()
 
     const agendamento: IAgendamento = agendamentos
-    .find(agendamentoParam => agendamentoParam.id === agendamentoId)
+      .find(agendamentoParam => agendamentoParam.id === agendamentoId)
 
     return agendamento
 
   } catch (error) {
-    handleError(error, 'Erro ao buscar agendamento')
+    handleError(error, "Erro ao buscar agendamento")
   }
 }
 
@@ -70,7 +70,7 @@ export function setAgendamento(agendamentoParam: IAgendamentoParams): IAgendamen
     return savedAgendamento
 
   } catch (error) {
-    handleError(error, 'Erro ao buscar médico')
+    handleError(error, "Erro ao buscar médico")
   }
 }
 
@@ -83,7 +83,7 @@ export function getMaxId(): number {
     )
 
   } catch (error) {
-    handleError(error, 'Erro ao buscar maior id')
+    handleError(error, "Erro ao buscar maior id")
   }
 }
 
@@ -91,17 +91,16 @@ export function hasAgendamento(agendamentoParam: IAgendamentoParams): boolean {
   try {
     const agendamentos: IAgendamento[] = listAgendamentos()
 
-    const hasAgendamento: boolean = agendamentos.some((agendamento) => {
-      agendamentoParam.medico_id === agendamento.medico_id
-      && formatDateStringForISO8601(agendamentoParam.data_horario) === agendamento.data_horario
-      && agendamentoParam.paciente_nome === agendamento.paciente_nome
-    })
+    const hasAgendamento: boolean = agendamentos.some((agendamento) => 
+      agendamentoParam.medico_id === agendamento.medico_id &&
+      formatDateStringForISO8601(agendamentoParam.data_horario) === agendamento.data_horario &&
+      agendamentoParam.paciente_nome === agendamento.paciente_nome
+    )
 
-    if ( !hasAgendamento ) return false
-
-    return true
+    return hasAgendamento
 
   } catch (error) {
-    handleError(error, 'Erro ao buscar agendamento')
+    handleError(error, "Erro ao buscar agendamento")
   }
 }
+

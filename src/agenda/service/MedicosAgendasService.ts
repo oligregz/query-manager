@@ -29,7 +29,7 @@ export class MedicosAgendasService implements IMedicosAgendasService {
 
   public hasTimetableAvailable(data_horario: string, medicoId: number): boolean {
     const hasTimetableAvailable: boolean = MedicosAgendasDTO
-    .hasTimetableAvailable(data_horario, medicoId)
+      .hasTimetableAvailable(data_horario, medicoId)
 
     return hasTimetableAvailable
   }
