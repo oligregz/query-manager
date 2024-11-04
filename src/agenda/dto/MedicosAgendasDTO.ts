@@ -16,9 +16,7 @@ export class MedicosAgendasDTO implements IMedicosAgendas {
   }
 
   static getMedicoAgendaById(medicoId: number): IMedicosAgendas {
-    const medicoAgenda: IMedicosAgendas = MedicosAgendasRepository.getMedicoAgendaById(medicoId)
-    
-    return medicoAgenda 
+    return MedicosAgendasRepository.getMedicoAgendaById(medicoId) 
   }
 
   static hasTimetableAvailable(data_horario: string, medicoId: number): boolean {
